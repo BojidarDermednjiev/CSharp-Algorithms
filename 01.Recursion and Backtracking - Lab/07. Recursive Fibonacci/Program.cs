@@ -1,12 +1,18 @@
-﻿using System;
-
-namespace _07._Recursive_Fibonacci
+﻿namespace _07._Recursive_Fibonacci
 {
-    internal class Program
+    using System;
+    public class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
+            int inputFromConsole = int.Parse(Console.ReadLine());
+            Console.WriteLine(GetFabonacci(inputFromConsole));
+        }
+        private static int GetFabonacci(int number)
+        {
+            if(number <= 1)
+                return 1;
+            return GetFabonacci(number - 1) + GetFabonacci(number - 2);
         }
     }
 }

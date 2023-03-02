@@ -41,7 +41,6 @@
                 }
             }
         }
-
         private static void PrintBoard(bool[,] board)
         {
             for (int row = 0; row < board.GetLength(0); row++)
