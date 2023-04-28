@@ -44,7 +44,6 @@
             (elementsArray[first], elementsArray[second]) = (elementsArray[second], elementsArray[first]);
             elements = new HashSet<string>(elementsArray);
         }
-
         private static void IO()
         {
             Console.WriteLine(String.Join(" ", elements));
