@@ -19,10 +19,11 @@
                 isSorted = true;
                 for (int index = 1; index < array.Length - sortedCount; index++)
                 {
-                    var number = index - 1;
-                    if (array[number] > array[index])
+                    var numberForCampare = array[index - 1];
+                    var number = array[index];
+                    if (number < numberForCampare)
                     {
-                        Swap(array, number, index);
+                        Swap(array, index - 1, index);
                         isSorted = false;
                     }
                 }

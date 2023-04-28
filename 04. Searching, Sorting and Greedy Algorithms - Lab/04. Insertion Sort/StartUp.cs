@@ -14,11 +14,12 @@
         {
             for (int index = 1; index < array.Length; index++)
             {
-                var number = index;
-                while (number > 0 && array[number - 1] > array[number])
+                var numberForCampare = array[index - 1];
+                var currentNumber = array[index];
+                while (index >= 0 && numberForCampare > currentNumber)
                 {
-                    Swap(array, number, number - 1);
-                    number--;
+                    Swap(array, index, index - 1);
+                    index--;
                 }
             }
         }
