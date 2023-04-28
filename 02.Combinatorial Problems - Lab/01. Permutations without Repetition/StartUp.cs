@@ -8,7 +8,6 @@
     {
         private static HashSet<string> elements;
         private static bool[] used;
-        private static string[] permute;
         static void Main()
         {
             GetInfo();
@@ -16,29 +15,39 @@
         }
         private static void GetInfo()
         {
-            elements = new HashSet<string>(Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).ToArray());
-            permute = new string[elements.Count];
+            elements = new HashSet<string>(Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries));
             used = new bool[elements.Count];
         }
         private static void Permute(int index)
         {
-            if (index >= permute.Length)
+            if (index >= elements.Count)
             {
                 IO();
                 return;
             }
-            else
-                for (int currentIndex = 0; currentIndex < elements.Count; currentIndex++)
-                    if (!used[currentIndex])
-                    {
-                        used[currentIndex] = true;
-                        var element = elements.ToArray()[currentIndex];
-                        permute[index] = element;
-                        Permute(index + 1);
-                        used[currentIndex] = false;
-                    }
+            Permute(index + 1);
+            for (int currentIndex = index + 1; currentIndex < elements.Count; currentIndex++)
+            {
+                if (!used[currentIndex])
+                {
+                    used[currentIndex] = true;
+                    Swap(index, currentIndex);
+                    Permute(index + 1);
+                    Swap(index, currentIndex);
+                    used[currentIndex] = false;
+                }
+            }
         }
+        private static void Swap(int first, int second)
+        {
+            var elementsArray = elements.ToArray();
+            (elementsArray[first], elementsArray[second]) = (elementsArray[second], elementsArray[first]);
+            elements = new HashSet<string>(elementsArray);
+        }
+
         private static void IO()
-           => Console.WriteLine(String.Join(" ", permute));
+        {
+            Console.WriteLine(String.Join(" ", elements));
+        }
     }
 }
