@@ -9,13 +9,13 @@
         static void Main()
         {
             GetInfo();
+            GenCombinations(default(int), default(int));
         }
         private static void GetInfo()
         {
             elements = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
             count = int.Parse(Console.ReadLine());
             conbinations = new string[count];
-            GenCombinations(0, 0);
         }
         private static void GenCombinations(int index, int elementStartIndex)
         {
