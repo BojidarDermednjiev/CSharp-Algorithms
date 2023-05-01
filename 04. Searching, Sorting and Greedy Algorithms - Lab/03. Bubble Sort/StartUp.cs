@@ -19,9 +19,9 @@
                 isSorted = true;
                 for (int index = 1; index < array.Length - sortedCount; index++)
                 {
-                    var numberForCampare = array[index - 1];
-                    var number = array[index];
-                    if (number < numberForCampare)
+                    var firstNumber = array[index - 1];
+                    var secondNumber = array[index];
+                    if (secondNumber < firstNumber)
                     {
                         Swap(array, index - 1, index);
                         isSorted = false;
