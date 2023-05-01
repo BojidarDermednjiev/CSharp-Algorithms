@@ -23,7 +23,7 @@
                     var secondNumber = array[index];
                     if (secondNumber < firstNumber)
                     {
-                        Swap(array, index - 1, index);
+                        Swap(array, index - 1/* --> firstNumber */, index /* --> secondNumber */);
                         isSorted = false;
                     }
                 }
