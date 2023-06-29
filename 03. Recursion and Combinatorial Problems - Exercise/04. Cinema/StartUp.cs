@@ -49,6 +49,7 @@
             for (int currentIndex = 0; currentIndex < people.Length; currentIndex++)
                 if (!locked[currentIndex])
                     people[currentIndex] = nonStaticPeople[nonStaticIndex++];
+
             Console.WriteLine(string.Join(" ", people));
         }
 

@@ -25,15 +25,35 @@
         private const char VisitedSymbol = 'v';
         static void Main()
         {
-            var rows = int.Parse(Console.ReadLine());
-            var cols = int.Parse(Console.ReadLine());
+            int rows, cols;
+            GetInfo(out rows, out cols);
+            FillMatrix(rows, cols);
+            List<Area> areas = Engine(rows, cols);
+            var sortedAreas = areas.Where(x => x.Sice > 0).OrderByDescending(x => x.Sice).ThenBy(x => x.Row).ThenBy(x => x.Col).ToList();
+            Console.WriteLine($"Total areas found: {areas.Count}");
+            for (int currentArea = 0; currentArea < sortedAreas.Count; currentArea++)
+            {
+                var area = sortedAreas[currentArea];
+                Console.WriteLine($"Area #{currentArea + 1} at ({area.Row}, {area.Col}), size: {area.Sice}");
+            }
+        }
+        private static void GetInfo(out int rows, out int cols)
+        {
+            rows = int.Parse(Console.ReadLine());
+            cols = int.Parse(Console.ReadLine());
             matrix = new char[rows, cols];
+        }
+        private static void FillMatrix(int rows, int cols)
+        {
             for (int currenRow = 0; currenRow < rows; currenRow++)
             {
                 var colElements = Console.ReadLine();
                 for (int currentCol = 0; currentCol < cols; currentCol++)
                     matrix[currenRow, currentCol] = colElements[currentCol];
             }
+        }
+        private static List<Area> Engine(int rows, int cols)
+        {
             var areas = new List<Area>();
             for (int currentRow = 0; currentRow < rows; currentRow++)
                 for (int currentCol = 0; currentCol < cols; currentCol++)
@@ -43,13 +63,8 @@
                     if (size != default)
                         areas.Add(new Area(currentRow, currentCol, size));
                 }
-            var sorted = areas.Where(x => x.Sice > 0).OrderByDescending(x => x.Sice).ThenBy(x => x.Row).ThenBy(x => x.Col).ToList();
-            Console.WriteLine($"Total areas found: {areas.Count}");
-            for (int currentArea = 0; currentArea < sorted.Count; currentArea++)
-            {
-                var area = sorted[currentArea];
-                Console.WriteLine($"Area #{currentArea + 1} at ({area.Row}, {area.Col}), size: {area.Sice}");
-            }
+
+            return areas;
         }
         private static void ExploreArea(int row, int col)
         {
