@@ -18,10 +18,10 @@
                 {
                     var alanPresents = FindSubset(allSums, alanSum);
                     var bobSum = totalSum - alanSum;
-                    Console.WriteLine($"Difference: {bobSum - alanSum}");
-                    Console.WriteLine($"Alan:{alanSum} Bob:{bobSum}");
-                    Console.WriteLine($"Alan takes: {string.Join(" ", alanPresents)}");
-                    Console.WriteLine("Bob takes the rest.");
+                        Console.WriteLine($"Difference: {bobSum - alanSum}");
+                        Console.WriteLine($"Alan:{alanSum} Bob:{bobSum}");
+                        Console.WriteLine($"Alan takes: {string.Join(" ", alanPresents)}");
+                        Console.WriteLine(alanSum < bobSum ? $"Bob takes: {string.Join(" ", presents.Except(alanPresents))}" : $"Bob takes: {string.Join(" ", alanPresents)}");
                     break;
                 }
                 else
