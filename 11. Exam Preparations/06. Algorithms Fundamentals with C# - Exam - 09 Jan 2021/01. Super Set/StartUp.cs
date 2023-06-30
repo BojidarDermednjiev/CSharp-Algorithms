@@ -1,23 +1,31 @@
 ﻿namespace _01._Super_Set
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-
+    using System.Collections.Generic;
     public class StartUp
     {
-        private static List<int>[] set;
+        private static HashSet<int> elements;
+        private static int[] combinations;
         static void Main()
         {
             int[] input = Console.ReadLine().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
-            List<List<int>> subsets = GetSubsets(input);
-            foreach (List<int> subset in subsets)
-                Console.WriteLine(string.Join(" ", subset));
+            elements = new HashSet<int>(input);
+            combinations = new int[input.Length];
+            for (int currentIndex = 0; currentIndex <= input.Length; currentIndex++)
+                GenCombinations(default, default, currentIndex);
         }
-
-        private static List<List<int>> GetSubsets(int[] set)
+        private static void GenCombinations(int index, int elementStartIndex, int length)
         {
-            return new List<List<int>>();
+            if (index >= length)
+                Console.WriteLine(string.Join(" ", combinations.Take(length)));
+            else
+                for (int currentIndex = elementStartIndex; currentIndex < elements.Count; currentIndex++)
+                {
+                    var element = elements.ToArray()[currentIndex];
+                    combinations[index] = element;
+                    GenCombinations(index + 1, currentIndex + 1, length);
+                }
         }
     }
 }
