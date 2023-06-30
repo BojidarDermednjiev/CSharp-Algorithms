@@ -9,7 +9,6 @@
         {
             int nodes = int.Parse(Console.ReadLine());
             List<int>[] graph = new List<int>[nodes];
-            ;
             for (int currentNode = 0; currentNode < nodes; currentNode++)
             {
                 string[] children = Console.ReadLine().Split(' ');
