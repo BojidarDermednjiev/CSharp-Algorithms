@@ -5,9 +5,9 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01. Word Searcher", "01. Word Searcher\01. Word Searcher.csproj", "{25B68B6E-A10C-448B-8BB7-006E5D3A1D39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. Crypto Exchange", "02. Crypto Exchange\02. Crypto Exchange.csproj", "{BB9770DF-C693-4D02-9AC4-786AAA7588D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02. Crypto Exchange", "02. Crypto Exchange\02. Crypto Exchange.csproj", "{BB9770DF-C693-4D02-9AC4-786AAA7588D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Contaminated Path", "03. Contaminated Path\03. Contaminated Path.csproj", "{1FD7A6E5-CF89-49CC-BC70-8AD5940E1AAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03. Contaminated Path", "03. Contaminated Path\03. Contaminated Path.csproj", "{1FD7A6E5-CF89-49CC-BC70-8AD5940E1AAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

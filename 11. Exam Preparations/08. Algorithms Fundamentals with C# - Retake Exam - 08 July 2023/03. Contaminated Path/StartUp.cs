@@ -1,37 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-
-class Cell
+class StartUp
 {
-    public int Row { get; set; }
-    public int Col { get; set; }
-    public int Fertility { get; set; }
-}
-
-class Program
-{
-    static void Main(string[] args)
+    static void Main()
     {
         int gridSize = int.Parse(Console.ReadLine());
         List<List<Cell>> grid = new List<List<Cell>>();
 
-        // Read the grid elements
-        for (int i = 0; i < gridSize; i++)
+        for (int row = 0; row < gridSize; row++)
         {
             string[] rowElements = Console.ReadLine().Split(' ');
-            List<Cell> row = new List<Cell>();
+            List<Cell> rows = new List<Cell>();
 
-            for (int j = 0; j < gridSize; j++)
+            for (int col = 0; col < gridSize; col++)
             {
-                int fertility = int.Parse(rowElements[j]);
-                Cell cell = new Cell { Row = i, Col = j, Fertility = fertility };
-                row.Add(cell);
+                int fertility = int.Parse(rowElements[col]);
+                Cell cell = new Cell { Row = row, Col = col, Fertility = fertility };
+                rows.Add(cell);
             }
 
-            grid.Add(row);
+            grid.Add(rows);
         }
 
-        // Read the contaminated cells
         string[] contaminatedCells = Console.ReadLine().Split(' ');
         HashSet<string> contaminatedSet = new HashSet<string>(contaminatedCells);
 
@@ -45,27 +35,24 @@ class Program
     {
         int[,] dp = new int[gridSize, gridSize];
 
-        // Initialize the first row and first column
         dp[0, 0] = grid[0][0].Fertility;
-        for (int i = 1; i < gridSize; i++)
+        for (int row = 1; row < gridSize; row++)
         {
-            // If a cell is contaminated, set its fertility to 0
-            dp[0, i] = dp[0, i - 1] + (contaminatedSet.Contains($"0,{i}") ? 0 : grid[0][i].Fertility);
-            dp[i, 0] = dp[i - 1, 0] + (contaminatedSet.Contains($"{i},0") ? 0 : grid[i][0].Fertility);
+            dp[0, row] = dp[0, row - 1] + (contaminatedSet.Contains($"0,{row}") ? 0 : grid[0][row].Fertility);
+            dp[row, 0] = dp[row - 1, 0] + (contaminatedSet.Contains($"{row},0") ? 0 : grid[row][0].Fertility);
         }
 
-        // Compute the maximum fertility for each cell
-        for (int i = 1; i < gridSize; i++)
+        for (int row = 1; row < gridSize; row++)
         {
-            for (int j = 1; j < gridSize; j++)
+            for (int col = 1; col < gridSize; col++)
             {
-                if (contaminatedSet.Contains($"{i},{j}"))
+                if (contaminatedSet.Contains($"{row},{col}"))
                 {
-                    dp[i, j] = 0;
+                    dp[row, col] = 0;
                 }
                 else
                 {
-                    dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]) + grid[i][j].Fertility;
+                    dp[row, col] = Math.Max(dp[row - 1, col], dp[row, col - 1]) + grid[row][col].Fertility;
                 }
             }
         }
@@ -75,32 +62,38 @@ class Program
 
     static string FindBestPath(List<List<Cell>> grid, int gridSize)
     {
-        int i = gridSize - 1;
-        int j = gridSize - 1;
-        string path = $"({i}, {j})";
+        int row = gridSize - 1;
+        int col = gridSize - 1;
+        string path = $"({row}, {col})";
 
-        while (i > 0 || j > 0)
+        while (row > 0 || col > 0)
         {
-            if (i > 0 && j > 0 && grid[i - 1][j].Fertility > grid[i][j - 1].Fertility)
+            if (row > 0 && col > 0 && grid[row - 1][col].Fertility > grid[row][col - 1].Fertility)
             {
-                i--;
+                row--;
             }
-            else if (i > 0 && j > 0 && grid[i - 1][j].Fertility < grid[i][j - 1].Fertility)
+            else if (row > 0 && col > 0 && grid[row - 1][col].Fertility < grid[row][col - 1].Fertility)
             {
-                j--;
+                col--;
             }
-            else if (i > 0)
+            else if (row > 0)
             {
-                i--;
+                row--;
             }
             else
             {
-                j--;
+                col--;
             }
 
-            path = $"({i}, {j}) " + path;
+            path = $"({row}, {col}) " + path;
         }
 
         return "[" + path + "]";
+    }
+    class Cell
+    {
+        public int Row { get; set; }
+        public int Col { get; set; }
+        public int Fertility { get; set; }
     }
 }

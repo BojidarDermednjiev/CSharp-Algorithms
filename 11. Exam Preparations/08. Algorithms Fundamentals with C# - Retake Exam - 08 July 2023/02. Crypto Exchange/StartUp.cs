@@ -1,31 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-
-class Program
+class StartUp
 {
     static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
+        int trades = int.Parse(Console.ReadLine());
         Dictionary<string, List<string>> tradeRules = new Dictionary<string, List<string>>();
 
-        // Read the supported pairs and build the trade rules dictionary
-        for (int i = 0; i < n; i++)
+        for (int currentTrade = 0; currentTrade < trades; currentTrade++)
         {
             string[] pair = Console.ReadLine().Split(" - ");
             string asset1 = pair[0];
             string asset2 = pair[1];
 
             if (!tradeRules.ContainsKey(asset1))
-            {
                 tradeRules[asset1] = new List<string>();
-            }
 
             tradeRules[asset1].Add(asset2);
 
             if (!tradeRules.ContainsKey(asset2))
-            {
                 tradeRules[asset2] = new List<string>();
-            }
 
             tradeRules[asset2].Add(asset1);
         }
@@ -52,23 +46,17 @@ class Program
             string current = queue.Dequeue();
 
             if (current == target)
-            {
                 return swaps[current];
-            }
 
             visited.Add(current);
 
             if (tradeRules.ContainsKey(current))
-            {
                 foreach (string asset in tradeRules[current])
                 {
                     if (!visited.Contains(asset))
-                    {
                         queue.Enqueue(asset);
-                        swaps[asset] = swaps[current] + 1;
-                    }
+                    swaps[asset] = swaps[current] + 1;
                 }
-            }
         }
 
         return int.MaxValue;
